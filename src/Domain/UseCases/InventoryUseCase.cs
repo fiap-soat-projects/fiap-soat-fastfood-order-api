@@ -8,7 +8,6 @@ namespace Business.UseCases;
 
 internal class InventoryUseCase : IInventoryUseCase
 {
-    // chamar api
     private readonly IInventoryLogger _inventoryLogger;
 
     public InventoryUseCase(IInventoryLogger inventoryLoggerGateway)

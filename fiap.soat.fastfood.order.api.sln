@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 18
-VisualStudioVersion = 18.0.11018.127
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36109.1 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -16,7 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		docker-compose-local-example.yml = docker-compose-local-example.yml
 		Dockerfile = Dockerfile
-		scripts\init-db.js = scripts\init-db.js
 		README.md = README.md
 		docs\ubiquitous-language.md = docs\ubiquitous-language.md
 	EndProjectSection
@@ -37,7 +36,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Drivers", "Drivers", "{0B11
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k6", "k6", "{C0635555-09F4-4FC6-A6B9-DE0C7C7F864E}"
 	ProjectSection(SolutionItems) = preProject
-		k6\fastfood-api-create-user.js = k6\fastfood-api-create-user.js
 		k6\fastfood-api-get-menu.js = k6\fastfood-api-get-menu.js
 	EndProjectSection
 EndProject
@@ -56,11 +54,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{F295F365-A31
 		k8s\fastfood-api-secret.yaml = k8s\fastfood-api-secret.yaml
 		k8s\fastfood-api-service.yaml = k8s\fastfood-api-service.yaml
 		k8s\fastfood-api-servicemonitor.yaml = k8s\fastfood-api-servicemonitor.yaml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{A9756BA2-95F8-4F2D-81D7-ED39400EBB1A}"
-	ProjectSection(SolutionItems) = preProject
-		scripts\init-db.js = scripts\init-db.js
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{48B356B8-D7F2-459A-8934-1C78D85E490C}"
@@ -132,7 +125,6 @@ Global
 		{1D27BCFA-B3F1-4E11-B0DC-1AFCDEBDFCEC} = {53C57D7B-F25E-4F9F-B58C-CACBD97C1F03}
 		{7A43AFEA-6D9A-45C5-887E-8312ECC68A73} = {1D27BCFA-B3F1-4E11-B0DC-1AFCDEBDFCEC}
 		{F295F365-A31A-420C-9A5D-00E4C6978699} = {53C57D7B-F25E-4F9F-B58C-CACBD97C1F03}
-		{A9756BA2-95F8-4F2D-81D7-ED39400EBB1A} = {53C57D7B-F25E-4F9F-B58C-CACBD97C1F03}
 		{9E4A5685-6FAC-4734-8769-74F0C9592953} = {F295F365-A31A-420C-9A5D-00E4C6978699}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

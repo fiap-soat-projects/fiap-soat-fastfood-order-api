@@ -25,7 +25,6 @@ public static class AdapterExtensions
         return services
          .AddSingleton<IOrderUseCase, OrderUseCase>()
          .AddSingleton<ITransactionUseCase, TransactionUseCase>()
-         .AddSingleton<ICustomerUseCase, CustomerUseCase>()
          .AddSingleton<IInventoryUseCase, InventoryUseCase>()
          .AddSingleton<IMenuItemUseCase, MenuItemUseCase>();
 
@@ -34,18 +33,14 @@ public static class AdapterExtensions
     private static IServiceCollection RegisterControllers(this IServiceCollection services)
     {
         return services
-             .AddSingleton<IOrderController, OrderController>()
-             .AddSingleton<ISelfOrderingController, SelfOrderingController>()
-             .AddSingleton<IMenuController, MenuController>();
+             .AddSingleton<IOrderController, OrderController>();
     }
 
     public static IServiceCollection RegisterGateways(this IServiceCollection services)
     {
         services
             .AddSingleton<IInventoryLogger, InventoryLoggerGateway>()
-            .AddSingleton<IOrderRepository, OrderGateway>()
-            .AddSingleton<ICustomerRepository, CustomerGateway>()
-            .AddSingleton<IMenuItemRepository, MenuItemGateway>();
+            .AddSingleton<IOrderRepository, OrderGateway>();
 
         return services;
     }
