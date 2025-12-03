@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: fastfood-api
+  name: fastfood-order-api
   namespace: fiap
   labels:
-    app: fastfood-api
+    app: fastfood-order-api
 spec:
   selector:
-    app: fastfood-api  
+    app: fastfood-order-api  
   ports:
     - name: http
       protocol: TCP

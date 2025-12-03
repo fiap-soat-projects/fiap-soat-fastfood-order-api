@@ -1,13 +1,13 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: fastfood-api
+  name: fastfood-order-api
   namespace: fiap
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: fastfood-api
+    name: fastfood-order-api
   pollingInterval: 30
   cooldownPeriod: 30
   minReplicaCount: 3

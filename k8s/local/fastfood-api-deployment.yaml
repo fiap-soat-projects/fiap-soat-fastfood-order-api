@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fastfood-api
+  name: fastfood-order-api
   namespace: fiap
   labels:
-    app: fastfood-api
+    app: fastfood-order-api
 spec:
   selector:
     matchLabels:
-      app: fastfood-api
+      app: fastfood-order-api
   template:
     metadata:
       labels:
-        app: fastfood-api
+        app: fastfood-order-api
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/path: "/metrics"
         prometheus.io/port: "8080"
     spec:
       containers:
-        - name: fastfood-api
-          image: jefersondsgomes/fiap-soat-fastfood-api:latest
+        - name: fastfood-order-api
+          image: jefersondsgomes/fiap-soat-fastfood-order-api:latest
           imagePullPolicy: IfNotPresent
           startupProbe:
             httpGet:
@@ -53,9 +53,9 @@ spec:
                 fieldPath: metadata.name            
           envFrom:
             - configMapRef:
-                name: fastfood-api
+                name: fastfood-order-api
             - secretRef:
-                name: fastfood-api
+                name: fastfood-order-api
           resources:
             requests:
               cpu: "100m"

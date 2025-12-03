@@ -50,10 +50,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{F295F365-A31
 	ProjectSection(SolutionItems) = preProject
 		k8s\fastfood-api-configmap.yaml = k8s\fastfood-api-configmap.yaml
 		k8s\fastfood-api-deployment.yaml = k8s\fastfood-api-deployment.yaml
-		k8s\fastfood-api-scaledobject.yaml = k8s\fastfood-api-scaledobject.yaml
-		k8s\fastfood-api-secret.yaml = k8s\fastfood-api-secret.yaml
 		k8s\fastfood-api-service.yaml = k8s\fastfood-api-service.yaml
-		k8s\fastfood-api-servicemonitor.yaml = k8s\fastfood-api-servicemonitor.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{48B356B8-D7F2-459A-8934-1C78D85E490C}"
