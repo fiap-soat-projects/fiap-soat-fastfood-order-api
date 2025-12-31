@@ -15,15 +15,18 @@ internal class OrderController : IOrderController
     private readonly IOrderUseCase _orderUseCase;
     private readonly IMenuItemUseCase _menuItemUseCase;
     private readonly IInventoryUseCase _inventoryUseCase;
+    private readonly ICustomerUseCase _customerUseCase;
 
     public OrderController(
         IOrderUseCase orderUseCase,
         IMenuItemUseCase menuItemUseCase,
-        IInventoryUseCase inventoryUseCase)
+        IInventoryUseCase inventoryUseCase,
+        ICustomerUseCase customerUseCase)
     {
         _orderUseCase = orderUseCase;
         _menuItemUseCase = menuItemUseCase;
         _inventoryUseCase = inventoryUseCase;
+        _customerUseCase = customerUseCase;
     }
 
     public async Task<OrderPaginatedPresenter> GetAllAsync(OrderFilter filter, CancellationToken cancellationToken)
@@ -69,10 +72,12 @@ internal class OrderController : IOrderController
             ));
         }
 
+        var customer = await _customerUseCase.GetByIdAsync(request.CustomerId!, cancellationToken);
+
         var order = new Order
         (
-            request.CustomerId,
-            request.CustomerName,
+            customer.Id,
+            customer.Name,
             orderItems
         );
 

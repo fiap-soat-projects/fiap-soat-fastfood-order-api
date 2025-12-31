@@ -12,7 +12,7 @@ public class Customer : IBusinessEntity
     private string? _cpf;
     private string? _email;
 
-    public string Id
+    public string? Id
     {
         get => _id!;
         set
@@ -23,9 +23,7 @@ public class Customer : IBusinessEntity
         }
     }
 
-    public DateTime CreatedAt { get; private set; }
-
-    public required string Name
+    public string? Name
     {
         get => _name!;
         set
@@ -36,7 +34,7 @@ public class Customer : IBusinessEntity
         }
     }
 
-    public required Cpf Cpf
+    public Cpf Cpf
     {
         get => _cpf!;
         set
@@ -47,7 +45,7 @@ public class Customer : IBusinessEntity
         }
     }
 
-    public required Email Email
+    public Email Email
     {
         get => _email!;
         set
@@ -59,16 +57,11 @@ public class Customer : IBusinessEntity
     }
 
     [SetsRequiredMembers]
-    public Customer(string name, Cpf cpf, Email email)
+    public Customer(string? id, string? name, Cpf cpf, Email email)
     {
+        Id = id;
         Name = name;
         Cpf = cpf;
         Email = email;
-    }
-
-    public Customer(string id, DateTime createdAt)
-    {
-        Id = id;
-        CreatedAt = createdAt;
     }
 }

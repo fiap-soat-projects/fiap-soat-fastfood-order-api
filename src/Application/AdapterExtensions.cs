@@ -1,7 +1,9 @@
 ﻿using Adapter.Controllers;
 using Adapter.Controllers.Interfaces;
+using Adapter.Gateways.Clients;
 using Adapter.Gateways.Logger;
 using Adapter.Gateways.Repositories;
+using Business.Gateways.Clients.Interfaces;
 using Business.Gateways.Loggers.Interfaces;
 using Business.Gateways.Repositories.Interfaces;
 using Business.UseCases;
@@ -25,7 +27,8 @@ public static class AdapterExtensions
         return services
          .AddSingleton<IOrderUseCase, OrderUseCase>()
          .AddSingleton<IInventoryUseCase, InventoryUseCase>()
-         .AddSingleton<IMenuItemUseCase, MenuItemUseCase>();
+         .AddSingleton<IMenuItemUseCase, MenuItemUseCase>()
+         .AddSingleton<ICustomerUseCase, CustomerUseCase>();
 
     }
 
@@ -39,7 +42,8 @@ public static class AdapterExtensions
     {
         services
             .AddSingleton<IInventoryLogger, InventoryLoggerGateway>()
-            .AddSingleton<IOrderRepository, OrderGateway>();
+            .AddSingleton<IOrderRepository, OrderGateway>()
+            .AddSingleton<ICustomerClient, CustomerGateway>();
 
         return services;
     }

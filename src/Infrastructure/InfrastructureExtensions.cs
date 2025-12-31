@@ -1,4 +1,7 @@
-﻿using Infrastructure.Exceptions;
+﻿using Business.Gateways.Clients.Interfaces;
+using Infrastructure.Clients;
+using Infrastructure.Clients.Interfaces;
+using Infrastructure.Exceptions;
 using Infrastructure.MongoDb.Connections;
 using Infrastructure.MongoDb.Connections.Interfaces;
 using Infrastructure.MongoDb.Factories;
@@ -6,6 +9,8 @@ using Infrastructure.MongoDb.Options;
 using Infrastructure.Repositories;
 using Infrastructure.Repositories.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using Polly;
+using System.Net.Http.Headers;
 
 namespace Infrastructure;
 
@@ -57,6 +62,24 @@ public static class InfrastructureExtensions
 
     public static IServiceCollection RegisterClients(this IServiceCollection services)
     {
+        const string CUSTOME_API_URL = "CUSTOMER_API_URL";
+        const int RETRY_COUNT = 3;
+
+        var customerApiUrl = Environment.GetEnvironmentVariable(CUSTOME_API_URL);
+        EnvironmentVariableNotFoundException.ThrowIfIsNullOrWhiteSpace(customerApiUrl, CUSTOME_API_URL);
+
+
+        services.AddHttpClient<IHttpCustomerClient, HttpCustomerClient>(client =>
+        {
+            client.BaseAddress = new Uri(customerApiUrl!);
+        })
+        .AddTransientHttpErrorPolicy(policyBuilder =>
+        {
+            return policyBuilder.WaitAndRetryAsync(
+                RETRY_COUNT,
+                attempt => TimeSpan.FromSeconds(0.4 * Math.Pow(2, attempt)));
+        });
+
         return services;
     }
 }

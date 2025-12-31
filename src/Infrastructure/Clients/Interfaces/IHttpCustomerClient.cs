@@ -1,5 +1,8 @@
-﻿namespace Infrastructure.Clients.Interfaces;
+﻿using Infrastructure.Entities;
 
-internal interface IHttpCustomerClient
+namespace Infrastructure.Clients.Interfaces;
+
+public interface IHttpCustomerClient
 {
+    Task<CustomerHttp?> GetByIdAsync(string id, CancellationToken cancellationToken);
 }

@@ -9,7 +9,7 @@ public readonly partial struct Cpf
 
     public string Number { get; }
 
-    public static implicit operator Cpf(string value) => new(value);
+    public static implicit operator Cpf(string? value) => new(value);
     public static implicit operator string(Cpf cpf) => cpf.Number;
 
     [GeneratedRegex(@"[^\d]")]
@@ -18,9 +18,9 @@ public readonly partial struct Cpf
     [GeneratedRegex(@"^\d{11}$")]
     private static partial Regex CpfRegex();
 
-    public Cpf(string number)
+    public Cpf(string? number)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace("Cpf cannot be null or white space");
+        ArgumentException.ThrowIfNullOrWhiteSpace(number, "Cpf cannot be null or white space");
 
         number = CpfReplaceRegex().Replace(number, string.Empty);
 
