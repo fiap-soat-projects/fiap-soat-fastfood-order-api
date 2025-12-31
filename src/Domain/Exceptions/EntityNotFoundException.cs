@@ -2,7 +2,7 @@
 
 namespace Business.Exceptions;
 
-public class EntityNotFoundException<TEntity> : DomainException where TEntity : IAggregateRoot
+public class EntityNotFoundException<TEntity> : DomainException where TEntity : IBusinessEntity
 {
     private static readonly string _entityClassName = typeof(TEntity).Name;
 

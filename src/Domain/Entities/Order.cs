@@ -4,7 +4,7 @@ using Business.Entities.Interfaces;
 
 namespace Business.Entities;
 
-public class Order : IAggregateRoot
+public class Order : IBusinessEntity
 {
     private string? _id;
     private string? _customerId;

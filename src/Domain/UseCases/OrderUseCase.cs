@@ -60,6 +60,11 @@ internal class OrderUseCase : IOrderUseCase
         return order;
     }
 
+    public async Task UpdatePaymentAsync(string id, Payment payment, CancellationToken cancellationToken)
+    {
+        await _orderRepository.UpdatePaymentAsync(id, OrderStatus.Received, payment, cancellationToken);
+    }
+
     public async Task DeleteAsync(string id, CancellationToken cancellationToken)
     {
         await _orderRepository.DeleteAsync(id, cancellationToken);

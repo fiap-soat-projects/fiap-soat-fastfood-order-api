@@ -21,8 +21,4 @@
 <ItemGroup>
     <InternalsVisibleTo Include="Adapter" />
 </ItemGroup>
-
-<ItemGroup>
-  <Folder Include="Clients\" />
-</ItemGroup>
 </Project>

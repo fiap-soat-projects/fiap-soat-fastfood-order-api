@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Gateways\Clients\DTOs\" />
-    <Folder Include="Gateways\Clients\Interfaces\" />
   </ItemGroup>
 
 </Project>

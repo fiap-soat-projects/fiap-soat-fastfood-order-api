@@ -9,23 +9,21 @@ using Business.UseCases.Exceptions;
 using Business.UseCases.Interfaces;
 
 namespace Adapter.Controllers;
+
 internal class OrderController : IOrderController
 {
     private readonly IOrderUseCase _orderUseCase;
     private readonly IMenuItemUseCase _menuItemUseCase;
     private readonly IInventoryUseCase _inventoryUseCase;
-    private readonly ITransactionUseCase _paymentUseCase;
 
     public OrderController(
         IOrderUseCase orderUseCase,
         IMenuItemUseCase menuItemUseCase,
-        IInventoryUseCase inventoryUseCase,
-        ITransactionUseCase paymentUseCase)
+        IInventoryUseCase inventoryUseCase)
     {
         _orderUseCase = orderUseCase;
         _menuItemUseCase = menuItemUseCase;
         _inventoryUseCase = inventoryUseCase;
-        _paymentUseCase = paymentUseCase;
     }
 
     public async Task<OrderPaginatedPresenter> GetAllAsync(OrderFilter filter, CancellationToken cancellationToken)
@@ -99,39 +97,33 @@ internal class OrderController : IOrderController
         return new OrderPresenter(order);
     }
 
+    public async Task UpdatePaymentAsync (string id, UpdatePaymentRequest updatePaymentRequest, CancellationToken cancellationToken)
+    {
+        var isValidPaymentStatus = Enum.TryParse<PaymentStatus>(updatePaymentRequest.Status!, out var paymentStatus);
+        if (isValidPaymentStatus) 
+        {
+            throw new Exception();
+        }
+
+        var isValidPaymentMethod = Enum.TryParse<PaymentMethod>(updatePaymentRequest.Method!, out var paymentMethod);
+        if (isValidPaymentMethod)
+        {
+            throw new Exception();
+        }
+
+        var payment = new Payment 
+        {
+            Id = id,
+            Method = paymentMethod,
+            Status = paymentStatus
+        };
+
+        await _orderUseCase.UpdatePaymentAsync(id, payment, cancellationToken);
+    }
+
     public async Task DeleteAsync(string id, CancellationToken cancellationToken)
     {
         await _orderUseCase.DeleteAsync(id, cancellationToken);
-    }
-
-    public async Task<CheckoutPresenter> CheckoutAsync(string id, CheckoutRequest request, CancellationToken cancellationToken)
-    {
-        var order = await _orderUseCase.GetByIdAsync(id, cancellationToken);
-
-        PaymentMethodNotSupportedException.ThrowIfPaymentMethodIsNotSupported(request.PaymentType!);
-
-        _ = Enum.TryParse(request.PaymentType, out PaymentMethod paymentMethod);
-
-        var orderPaymentCheckout = await _paymentUseCase.CheckoutAsync(order!, paymentMethod, cancellationToken);
-
-        return new CheckoutPresenter(orderPaymentCheckout);
-    }
-
-    public async Task ConfirmPaymentAsync(string id, CancellationToken cancellationToken)
-    {
-        await _paymentUseCase.ConfirmPaymentAsync(id, cancellationToken);
-    }
-
-    public async Task ProcessPaymentAsync(PaymentWebhook request, CancellationToken cancellationToken)
-    {
-        var payment = new Payment
-        {
-            Id = request.PaymentId,
-            Status = request.PaymentStatus,
-            Method = request.PaymentMethod
-        };
-
-        await _paymentUseCase.ProcessPaymentAsync(request.OrderId!, payment, cancellationToken);
     }
 
     private static OrderStatus ParseOrderStatus(string text)

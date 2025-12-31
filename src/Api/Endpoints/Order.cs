@@ -70,6 +70,17 @@ public class Order : ControllerBase
         return Ok(presenter.ViewModel);
     }
 
+    [HttpPatch("{id:length(24)}/payment")]
+    public async Task<IActionResult> UpdatePaymentAsync(
+        [FromBody] UpdatePaymentRequest request,
+        string id,
+        CancellationToken cancellationToken)
+    {
+        await _orderController.UpdatePaymentAsync(id, request, cancellationToken);
+
+        return NoContent();
+    }
+
     [HttpDelete("{id:length(24)}")]
     public async Task<IActionResult> DeleteAsync(string id, CancellationToken cancellationToken)
     {

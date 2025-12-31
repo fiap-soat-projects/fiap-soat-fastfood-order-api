@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Business.Entities;
 
-public class Customer : IAggregateRoot
+public class Customer : IBusinessEntity
 {
     private string? _id;
     private string? _name;

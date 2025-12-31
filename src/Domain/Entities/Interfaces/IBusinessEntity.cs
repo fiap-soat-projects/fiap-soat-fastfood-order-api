@@ -1,3 +1,3 @@
 ﻿namespace Business.Entities.Interfaces;
 
-public interface IAggregateRoot { }
+public interface IBusinessEntity { }

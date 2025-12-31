@@ -9,7 +9,6 @@ public record UpdateOrderResponse
     string CustomerName,
     IEnumerable<OrderItemResponse> Items,
     string Status,
-    Payment? Payment,
     decimal TotalPrice
 )
 { }

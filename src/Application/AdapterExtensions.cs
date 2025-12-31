@@ -24,7 +24,6 @@ public static class AdapterExtensions
 
         return services
          .AddSingleton<IOrderUseCase, OrderUseCase>()
-         .AddSingleton<ITransactionUseCase, TransactionUseCase>()
          .AddSingleton<IInventoryUseCase, InventoryUseCase>()
          .AddSingleton<IMenuItemUseCase, MenuItemUseCase>();
 

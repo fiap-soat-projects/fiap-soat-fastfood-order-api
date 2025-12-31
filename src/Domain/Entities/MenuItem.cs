@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Business.Entities;
 
-public class MenuItem : IAggregateRoot
+public class MenuItem : IBusinessEntity
 {
     private string? _id;
     private string? _name;
