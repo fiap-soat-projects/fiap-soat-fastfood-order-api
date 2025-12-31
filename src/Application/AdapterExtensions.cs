@@ -35,7 +35,8 @@ public static class AdapterExtensions
     private static IServiceCollection RegisterControllers(this IServiceCollection services)
     {
         return services
-             .AddSingleton<IOrderController, OrderController>();
+             .AddSingleton<IOrderController, OrderController>()
+             .AddSingleton<IMenuController, MenuController>();
     }
 
     public static IServiceCollection RegisterGateways(this IServiceCollection services)
@@ -43,6 +44,7 @@ public static class AdapterExtensions
         services
             .AddSingleton<IInventoryLogger, InventoryLoggerGateway>()
             .AddSingleton<IOrderRepository, OrderGateway>()
+            .AddSingleton<IMenuItemRepository, MenuItemGateway>()
             .AddSingleton<ICustomerClient, CustomerGateway>();
 
         return services;

@@ -161,16 +161,6 @@ Acesse o diretório `/k8s` e execute o comando `kubectl apply -f .`, isso fará 
 - `PATCH /order/{id}/status` — Atualizar status do pedido
 - `DELETE /order/{id}` — Remover pedido
 
-### 💸 Transaction (Pagamento)
-- `POST /order/{id}/checkout` — Iniciar checkout/pagamento
-- `POST /order/{id}/confirm-payment` — Confirmar pagamento
-- `POST /order/payment/webhook` — Webhook de pagamento
-
-### 🤖 SelfOrdering (Cliente)
-- `GET /self-ordering/customer/{id}` — Buscar cliente por ID
-- `GET /self-ordering/customer/{cpf}` — Buscar cliente por CPF
-- `POST /self-ordering/customer` — Registrar cliente
-
 ### 📲 Menu (Cardápio)
 - `GET /menu/{id}` — Detalhar item do cardápio
 - `GET /menu?name=string&category=0&skip=0&limit=10` — Listar itens do cardápio

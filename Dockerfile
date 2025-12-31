@@ -1,4 +1,4 @@
-ARG version=8.0
+ARG version=10.0
 
 FROM mcr.microsoft.com/dotnet/aspnet:${version} AS base
 WORKDIR /app
