@@ -1,3 +1,3 @@
 ﻿namespace Adapter.Controllers.DTOs;
 
-public record UpdatePaymentRequest(string? Id, string? Method, string? Status) { }
+public record UpdatePaymentRequest(string? PaymentId, string? PaymentMethod, string? PaymentStatus) { }

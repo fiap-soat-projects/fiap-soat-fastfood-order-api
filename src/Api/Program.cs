@@ -6,7 +6,7 @@ using Api.Middlewares;
 using Infrastructure;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Prometheus;
+using Scalar.AspNetCore;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
@@ -36,13 +36,14 @@ public class Program
 
     private static void ConfigureDependencies(IServiceCollection services)
     {
+        services.AddOpenApi();
+
         services
             .InjectInfrastructureDependencies()
             .InjectAdapterDependencies();
 
         services
             .AddEndpointsApiExplorer()
-            .AddSwaggerGen()
             .AddControllers()
             .AddJsonOptions(options =>
             {
@@ -85,12 +86,10 @@ public class Program
 
     private static void ConfigureApplication(WebApplication app)
     {
-        app.UseSwagger();
-        app.UseSwaggerUI();
+        app.MapOpenApi();
+        app.MapScalarApiReference();
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();
-        app.UseHttpMetrics();
-        app.MapMetrics();
     }
 }

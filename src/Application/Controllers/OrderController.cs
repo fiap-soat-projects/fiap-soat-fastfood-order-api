@@ -104,21 +104,21 @@ internal class OrderController : IOrderController
 
     public async Task UpdatePaymentAsync (string id, UpdatePaymentRequest updatePaymentRequest, CancellationToken cancellationToken)
     {
-        var isValidPaymentStatus = Enum.TryParse<PaymentStatus>(updatePaymentRequest.Status!, out var paymentStatus);
-        if (isValidPaymentStatus) 
+        var isValidPaymentStatus = Enum.TryParse<PaymentStatus>(updatePaymentRequest.PaymentStatus!, out var paymentStatus);
+        if (isValidPaymentStatus is false) 
         {
             throw new Exception();
         }
 
-        var isValidPaymentMethod = Enum.TryParse<PaymentMethod>(updatePaymentRequest.Method!, out var paymentMethod);
-        if (isValidPaymentMethod)
+        var isValidPaymentMethod = Enum.TryParse<PaymentMethod>(updatePaymentRequest.PaymentMethod!, out var paymentMethod);
+        if (isValidPaymentMethod is false)
         {
             throw new Exception();
         }
 
         var payment = new Payment 
         {
-            Id = id,
+            Id = updatePaymentRequest.PaymentId,
             Method = paymentMethod,
             Status = paymentStatus
         };
