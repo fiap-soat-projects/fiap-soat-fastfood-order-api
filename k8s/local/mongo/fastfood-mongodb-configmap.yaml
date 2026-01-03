@@ -5,41 +5,15 @@ metadata:
     namespace: fiap
 data:
     mongo-init.js: |
-        db = db.getSiblingDB('fastfood');
+        db = db.getSiblingDB('fastfood-order');
 
         db.createUser({
           user: "{{username}}",
           pwd: "{{password}}",
-          roles: [{ role: "readWrite", db: "fastfood" }]
+          roles: [{ role: "readWrite", db: "fastfood-order" }]
         });
 
         const now = new Date();
-
-        db.customer.createIndex({ cpf: 1 }, { unique: true });
-
-        db.customer.insertMany([
-            {
-                "_id": ObjectId("68d076b6020449f7b3d993e6"),
-                "createdAt": "2025-09-21T22:05:42.4275297Z",
-                "name": "alison",
-                "cpf": "11122233377",
-                "email": "alison@test.com"
-            },
-            {
-                "_id": ObjectId("68d07795a84df29051d120e8"),
-                "createdAt": "2025-09-21T22:05:42.4275297Z",
-                "name": "jeferson",
-                "cpf": "11122333377",
-                "email": "jeferson@test.com"
-            },
-            {
-                "_id": ObjectId("68d0779da84df29051d120e9"),
-                "createdAt": "2025-09-21T22:05:42.4275297Z",
-                "name": "jamison",
-                "cpf": "11122333379",
-                "email": "jeferson@test.com"
-            }
-        ]);
 
         db.menu.createIndex({ name: 1 }, { unique: true });
 
