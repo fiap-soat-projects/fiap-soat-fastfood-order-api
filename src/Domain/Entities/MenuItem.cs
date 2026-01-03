@@ -70,13 +70,6 @@ public class MenuItem : IBusinessEntity
         Description = description;
     }
 
-    public MenuItem(string id, DateTime createdAt, bool isActive)
-    {
-        Id = id;
-        CreatedAt = createdAt;
-        IsActive = isActive;
-    }
-
     internal void SetInactive()
     {
         IsActive = false;
