@@ -7,7 +7,8 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "AppName": "Fiap.PosTec.Soat.FastFood.Order.Api",
-        "MongoConnectionString": "mongodb://fastfooduser:f4sTf00dP4ssW0rd!@localhost:27017/fastfood",
+        "MongoConnectionString": "",
+        "CUSTOMER_API_URL": ""
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7257;http://localhost:5103"
