@@ -25,8 +25,8 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
-      - name: Test
-        run: dotnet test --no-build --verbosity normal
+      - name: Unit Tests
+        run: dotnet test --configuration Release --no-build --verbosity normal
   
   sonarqube-analysis:
     runs-on: ubuntu-latest
