@@ -1,4 +1,5 @@
 using Business.Entities;
+using Business.Entities.Enums;
 using Business.UseCases.DTOs;
 using Infrastructure.Entities;
 using NSubstitute;
@@ -11,9 +12,12 @@ public class GetAllAsyncTests : MenuItemGatewayTestsBase
     public async Task Have_GetAllAsync_When_NoItems_Then_ReturnsEmpty()
     {
         #region Arrange
-        var filter = new MenuItemFilter(null, null, Skip: 0, Limit: 10);
+        var filter = new MenuItemFilter(null, null, 0, 10);
+        
         _menuItemMongoDbRepository
-            .GetAllAsync(filter, Arg.Any<CancellationToken>())
+            .GetAllAsync(
+                filter, 
+                Arg.Any<CancellationToken>())
             .Returns([]);
         #endregion
 
@@ -31,9 +35,22 @@ public class GetAllAsyncTests : MenuItemGatewayTestsBase
         #region Arrange
         var filter = new MenuItemFilter(null, null, Skip: 0, Limit: 10);
 
-        var menuItemMongoDb = new MenuItemMongoDb { Id = "menu-1", Name = "Name", Price = 10m, Description = "Desc", IsActive = true, Category = Business.Entities.Enums.ItemCategory.MainCourse };
+        var menuItemMongoDb = new MenuItemMongoDb
+        { 
+            Id = "menu-1", 
+            Name = "Name",
+            Price = 10m,
+            Description = "Desc",
+            IsActive = true,
+            Category =
+            ItemCategory.MainCourse 
+        };
 
-        _menuItemMongoDbRepository.GetAllAsync(filter, Arg.Any<CancellationToken>()).Returns(new List<MenuItemMongoDb> { menuItemMongoDb });
+        _menuItemMongoDbRepository
+            .GetAllAsync(
+                filter, 
+                Arg.Any<CancellationToken>())
+            .Returns([menuItemMongoDb]);
         #endregion
 
         // Act

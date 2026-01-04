@@ -1,7 +1,9 @@
 ﻿using Business.Exceptions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Business.Entities.Exceptions;
 
+[ExcludeFromCodeCoverage]
 public class MenuItemException : InvalidEntityPropertyException<MenuItem>
 {
     public MenuItemException(string propertyName) : base(propertyName)

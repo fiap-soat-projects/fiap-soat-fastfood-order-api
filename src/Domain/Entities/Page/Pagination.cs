@@ -1,5 +1,8 @@
-﻿namespace Business.Entities.Page;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace Business.Entities.Page;
+
+[ExcludeFromCodeCoverage]
 public class Pagination<T>
 {
     public int Page { get; init; }

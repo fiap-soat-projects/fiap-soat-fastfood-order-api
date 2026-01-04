@@ -21,12 +21,12 @@ public class OrderPaginatedPresenter
 
     private static OrderResponse ToResponse(Order order)
     {
-        var id = order.Id ?? string.Empty;
+        var id = order.Id!;
         var customerId = order.CustomerId ?? string.Empty;
         var customerName = order.CustomerName ?? string.Empty;
 
         var items = order.Items.Select(item => new OrderItemResponse(
-            item.Name ?? string.Empty,
+            item.Name!,
             item.Category.ToString(),
             item.Price,
             item.Amount

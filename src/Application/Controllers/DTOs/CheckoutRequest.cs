@@ -1,7 +1,9 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 namespace Adapter.Controllers.DTOs;
 
+[ExcludeFromCodeCoverage]
 public record CheckoutRequest
 {
     private string? _paymentType;

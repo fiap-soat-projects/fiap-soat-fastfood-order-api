@@ -1,6 +1,9 @@
 ﻿using Business.Entities.Enums;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Adapter.Controllers.DTOs;
+
+[ExcludeFromCodeCoverage]
 public class PaymentWebhook
 {
     public string? OrderId { get; set; }    

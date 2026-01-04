@@ -1,7 +1,9 @@
 ﻿using Business.Entities.Enums;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Adapter.Controllers.DTOs;
 
+[ExcludeFromCodeCoverage]
 public record UpdateMenuItemRequest(
     string? Name,
     decimal Price,

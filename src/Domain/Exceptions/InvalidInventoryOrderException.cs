@@ -1,7 +1,9 @@
 ﻿using Business.Entities.Enums;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Business.Exceptions;
 
+[ExcludeFromCodeCoverage]
 public class InvalidInventoryOrderException(string message, OrderStatus status) : DomainException(message)
 {
     public OrderStatus InvalidStatus { get; private set; } = status;

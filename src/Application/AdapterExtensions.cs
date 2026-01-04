@@ -9,8 +9,11 @@ using Business.Gateways.Repositories.Interfaces;
 using Business.UseCases;
 using Business.UseCases.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Adapter;
+
+[ExcludeFromCodeCoverage]
 public static class AdapterExtensions
 {
     public static IServiceCollection InjectAdapterDependencies(this IServiceCollection services)

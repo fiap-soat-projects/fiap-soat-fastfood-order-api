@@ -1,6 +1,9 @@
-﻿using Business.UseCases.DTOs;
+﻿using Business.Entities;
+using Business.Exceptions;
+using Business.UseCases.DTOs;
 using Infrastructure.Entities;
 using Infrastructure.MongoDb.Contexts.Interfaces;
+using Infrastructure.Repositories.Exceptions;
 using Infrastructure.Repositories.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -16,7 +19,14 @@ internal class MenuItemMongoDbRepository : BaseRepository<MenuItemMongoDb>, IMen
 
     public async Task<MenuItemMongoDb> InsertOneAsync(MenuItemMongoDb item, CancellationToken cancellationToken)
     {
-        await _collection.InsertOneAsync(item, default, cancellationToken);
+        try
+        {
+            await _collection.InsertOneAsync(item, default, cancellationToken);
+        }
+        catch (MongoWriteException exception) when (exception.WriteError.Category is ServerErrorCategory.DuplicateKey)
+        {
+            throw new RepositoryDuplicatedKeyException();
+        }       
 
         return item;
     }
@@ -65,7 +75,7 @@ internal class MenuItemMongoDbRepository : BaseRepository<MenuItemMongoDb>, IMen
 
         var cursor = await query.ToCursorAsync(cancellationToken);
 
-        return cursor.ToEnumerable(cancellationToken: cancellationToken);
+        return cursor?.ToEnumerable(cancellationToken: cancellationToken) ?? [];
     }
 
     public async Task<MenuItemMongoDb> UpdateAsync(string id, MenuItemMongoDb item, CancellationToken cancellationToken)

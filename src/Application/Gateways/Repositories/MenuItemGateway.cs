@@ -3,6 +3,7 @@ using Business.Exceptions;
 using Business.Gateways.Repositories.Interfaces;
 using Business.UseCases.DTOs;
 using Infrastructure.Entities;
+using Infrastructure.Repositories.Exceptions;
 using Infrastructure.Repositories.Interfaces;
 using MongoDB.Driver;
 
@@ -27,9 +28,9 @@ internal class MenuItemGateway : IMenuItemRepository
 
             return menuItemMongoDb.ToDomain();
         }
-        catch (MongoWriteException exception) when (exception.WriteError.Category is ServerErrorCategory.DuplicateKey)
-        {
-            throw new DuplicatedItemException<MenuItem>(nameof(MenuItem.Name));
+        catch (RepositoryDuplicatedKeyException exception)
+        { 
+            throw new DuplicatedItemException<MenuItem>(nameof(MenuItem.Name), exception);
         }
     }
 
@@ -49,7 +50,7 @@ internal class MenuItemGateway : IMenuItemRepository
     {
         var menuItemsMongoDb = await _menuItemMongoDbRepository.GetAllAsync(filter, cancellationToken);
 
-        var menuItems = menuItemsMongoDb?.Select(menuItem => menuItem.ToDomain()) ?? [];
+        var menuItems = menuItemsMongoDb.Select(menuItem => menuItem.ToDomain());
 
         return menuItems;
     }

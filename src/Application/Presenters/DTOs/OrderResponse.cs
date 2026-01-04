@@ -1,7 +1,9 @@
 ﻿using Business.Entities;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Adapter.Presenters.DTOs;
 
+[ExcludeFromCodeCoverage]
 public record OrderResponse
 (
     string Id,

@@ -1,5 +1,8 @@
-﻿namespace Adapter.Presenters.DTOs;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace Adapter.Presenters.DTOs;
+
+[ExcludeFromCodeCoverage]
 public record OrderItemResponse
 (
     string? Name,

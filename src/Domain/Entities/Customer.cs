@@ -39,8 +39,6 @@ public class Customer : IBusinessEntity
         get => _cpf!;
         set
         {
-            CustomerException.ThrowIfNullOrWhiteSpace(value, nameof(Cpf));
-
             _cpf = value;
         }
     }
@@ -50,8 +48,6 @@ public class Customer : IBusinessEntity
         get => _email!;
         set
         {
-            CustomerException.ThrowIfNullOrWhiteSpace(value, nameof(Email));
-
             _email = value;
         }
     }

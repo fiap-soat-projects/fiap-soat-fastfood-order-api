@@ -1,5 +1,8 @@
-﻿namespace Business.Exceptions;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace Business.Exceptions;
+
+[ExcludeFromCodeCoverage]
 public class InvalidEntityPropertyException<TEntity> : DomainException where TEntity : class
 {
     private static readonly string _entityClassName = typeof(TEntity).Name;

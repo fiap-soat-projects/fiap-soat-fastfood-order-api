@@ -43,8 +43,8 @@ public class MenuItem : IBusinessEntity
         get => _price;
         set
         {
-            MenuItemException.ThrowIfZero(value, nameof(Name));
-            MenuItemException.ThrowIfNegative(value, nameof(Name));
+            MenuItemException.ThrowIfZero(value, nameof(Price));
+            MenuItemException.ThrowIfNegative(value, nameof(Price));
 
             _price = value;
         }
