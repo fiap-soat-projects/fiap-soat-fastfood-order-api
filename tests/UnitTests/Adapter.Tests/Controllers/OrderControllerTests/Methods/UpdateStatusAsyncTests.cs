@@ -2,6 +2,7 @@ using Adapter.Controllers.DTOs;
 using Adapter.Presenters;
 using Business.Entities;
 using Business.Entities.Enums;
+using Business.UseCases.Exceptions;
 using NSubstitute;
 
 namespace Adapter.Tests.Controllers.OrderControllerTests.Methods;
@@ -34,5 +35,18 @@ public class UpdateStatusAsyncTests : OrderControllerTestsBase
         Assert.IsType<OrderPresenter>(presenter);
 
         _inventoryUseCase.Received(1).GenerateAuditLog(order, Arg.Any<DateTime>());
+    }
+
+    [Fact]
+    public async Task Have_UpdateStatusAsync_When_NullOrEmptyStatus_Then_Throw_InvalidOrderStatusException_And_Not_Call_UseCase()
+    {
+        // Arrange
+        var id = "order-2";
+        var request = new UpdateStatusRequest(Status: null);
+
+        // Act & Assert
+        await Assert.ThrowsAsync<InvalidOrderStatusException>(() => _sut.UpdateStatusAsync(id, request, CancellationToken.None));
+
+        await _orderUseCase.DidNotReceive().UpdateStatusAsync(Arg.Any<string>(), Arg.Any<OrderStatus>(), Arg.Any<CancellationToken>());
     }
 }

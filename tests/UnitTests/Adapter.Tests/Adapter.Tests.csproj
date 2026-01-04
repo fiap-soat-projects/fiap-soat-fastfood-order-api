@@ -20,12 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Gateways\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\src\Application\Adapter.csproj" />
     <ProjectReference Include="..\..\..\src\Domain\Business.csproj" />
+    <ProjectReference Include="..\..\..\src\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

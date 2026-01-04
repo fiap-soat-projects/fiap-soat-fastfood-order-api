@@ -2,6 +2,7 @@ using Adapter.Presenters;
 using Business.Entities;
 using Business.Entities.Enums;
 using Business.UseCases.Exceptions;
+using Business.Exceptions;
 using NSubstitute;
 
 namespace Adapter.Tests.Controllers.OrderControllerTests.Methods;

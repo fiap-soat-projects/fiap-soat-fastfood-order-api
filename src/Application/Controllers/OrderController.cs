@@ -1,6 +1,7 @@
 ﻿using Adapter.Controllers.DTOs;
 using Adapter.Controllers.DTOs.Filters;
 using Adapter.Controllers.Interfaces;
+using Adapter.Exceptions;
 using Adapter.Presenters;
 using Business.Entities;
 using Business.Entities.Enums;
@@ -107,13 +108,13 @@ internal class OrderController : IOrderController
         var isValidPaymentStatus = Enum.TryParse<PaymentStatus>(updatePaymentRequest.PaymentStatus!, out var paymentStatus);
         if (isValidPaymentStatus is false) 
         {
-            throw new Exception();
+            throw new InvalidPaymentStatusException(updatePaymentRequest.PaymentStatus!);
         }
 
         var isValidPaymentMethod = Enum.TryParse<PaymentMethod>(updatePaymentRequest.PaymentMethod!, out var paymentMethod);
         if (isValidPaymentMethod is false)
         {
-            throw new Exception();
+            throw new InvalidPaymentMethodException(updatePaymentRequest.PaymentMethod!);
         }
 
         var payment = new Payment 

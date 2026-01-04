@@ -1,7 +1,5 @@
 using Adapter.Controllers;
 using Business.UseCases.Interfaces;
-using Business.UseCases.Interfaces;
-using Business.UseCases.Interfaces;
 using NSubstitute;
 
 namespace Adapter.Tests.Controllers.OrderControllerTests;
