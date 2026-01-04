@@ -51,7 +51,7 @@ public class SettersTests
         #endregion
 
         // Act
-        var exception = Record.Exception(() => new ItemQuantity { ItemId = newItemId, Quantity = 1 });
+        var exception = Record.Exception(() => new ItemQuantity { ItemId = newItemId!, Quantity = 1 });
 
         // Assert
         Assert.NotNull(exception);
