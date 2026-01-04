@@ -26,7 +26,7 @@ public class CreateAsyncTests : OrderControllerTestsBase
         var customer = new Customer("cust-1", "John", new Cpf("11144477735"), new Email("john@example.com"));
 
         _customerUseCase
-            .GetByIdAsync(customer.Id, Arg.Any<CancellationToken>())
+            .GetByIdAsync(customer.Id!, Arg.Any<CancellationToken>())
             .Returns(customer);
 
         _orderUseCase

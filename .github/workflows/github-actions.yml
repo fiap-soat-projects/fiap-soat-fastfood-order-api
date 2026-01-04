@@ -37,28 +37,38 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
+  
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
-
-      - name: Install SonarScanner for .NET
+  
+      - name: Install SonarScanner
         run: dotnet tool install --global dotnet-sonarscanner
-
-      - name: SonarCloud - Begin analysis
+  
+      - name: SonarCloud - Begin
         run: |
           dotnet-sonarscanner begin \
             /k:"fiap-soat-projects_fiap-soat-fastfood-order-api" \
             /o:"fiap-soat-projects" \
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
-            /d:sonar.host.url="https://sonarcloud.io"
-            
-
+            /d:sonar.host.url="https://sonarcloud.io" \
+            /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" \
+            /d:sonar.cs.vstest.reportsPaths="**/*.trx"
+  
       - name: Build
-        run: dotnet build --no-incremental
-
-      - name: SonarCloud - End analysis
+        run: dotnet build --configuration Release --no-incremental
+  
+      - name: Test + Coverage
+        run: |
+          dotnet test \
+            --configuration Release \
+            --no-build \
+            --logger trx \
+            /p:CollectCoverage=true \
+            /p:CoverletOutputFormat=opencover
+  
+      - name: SonarCloud - End
         run: |
           dotnet-sonarscanner end \
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
