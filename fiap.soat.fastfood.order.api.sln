@@ -51,11 +51,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{F295F365-A31
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{48B356B8-D7F2-459A-8934-1C78D85E490C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{9855A9F7-4D06-465F-8296-A501A9D2667E}"
-	ProjectSection(SolutionItems) = preProject
-		github-actions.yml = github-actions.yml
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "local", "local", "{9E4A5685-6FAC-4734-8769-74F0C9592953}"
 	ProjectSection(SolutionItems) = preProject
 		k8s\local\fastfood-api-configmap.yaml = k8s\local\fastfood-api-configmap.yaml

@@ -1,5 +1,6 @@
 ﻿using Business.ValueObjects.Exceptions;
 using System.Text.RegularExpressions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Domain.ValueObjects;
 
@@ -12,19 +13,17 @@ public readonly partial struct Cpf
     public static implicit operator Cpf(string? value) => new(value);
     public static implicit operator string(Cpf cpf) => cpf.Number;
 
-    [GeneratedRegex(@"[^\d]")]
-    private static partial Regex CpfReplaceRegex();
+    private static readonly Regex CpfReplaceRegex = new Regex(@"[^\d]", RegexOptions.Compiled);
 
-    [GeneratedRegex(@"^\d{11}$")]
-    private static partial Regex CpfRegex();
+    private static readonly Regex CpfRegex = new Regex(@"^\d{11}$", RegexOptions.Compiled);
 
     public Cpf(string? number)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(number, "Cpf cannot be null or white space");
 
-        number = CpfReplaceRegex().Replace(number, string.Empty);
+        number = CpfReplaceRegex.Replace(number, string.Empty);
 
-        if (number.Length != CPF_LENGTH || CpfRegex().IsMatch(number) is false)
+        if (number.Length != CPF_LENGTH || CpfRegex.IsMatch(number) is false)
         {
             throw new InvalidCpfException(number);
         }

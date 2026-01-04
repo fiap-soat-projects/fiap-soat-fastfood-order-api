@@ -113,7 +113,7 @@ public class Order : IBusinessEntity
 
         if (isInvalidCategory)
         {
-            throw new OrderItemException(nameof(OrderStatus));
+            throw new OrderException(nameof(Status));
         }
     }
 

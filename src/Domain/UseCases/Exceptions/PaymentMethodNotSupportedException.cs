@@ -1,6 +1,9 @@
 ﻿using Business.Entities.Enums;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Business.UseCases.Exceptions;
+
+[ExcludeFromCodeCoverage]
 internal class PaymentMethodNotSupportedException : Exception
 {
     private const string DEFAULT_MESSAGE = "Payment method '{0}' not supported.";

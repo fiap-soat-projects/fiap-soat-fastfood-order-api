@@ -10,14 +10,13 @@ public readonly partial struct Email
     public static implicit operator Email(string? value) => new(value);
     public static implicit operator string(Email email) => email.Adress;
 
-    [GeneratedRegex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$")]
-    private static partial Regex EmailRegex();
+    private static readonly Regex EmailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled);
 
     public Email(string? address)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(address, "Email address cannot be null or white space");
 
-        if (EmailRegex().IsMatch(address) is false)
+        if (EmailRegex.IsMatch(address) is false)
         {
             throw new InvalidEmailException(address);
         }

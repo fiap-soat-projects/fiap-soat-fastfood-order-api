@@ -19,6 +19,7 @@ public class ConstructorTests
 
         // Assert
         Assert.NotNull(menuItem);
+        Assert.IsType<DateTime>(menuItem.CreatedAt);
         Assert.Equal(name, menuItem.Name);
         Assert.Equal(price, menuItem.Price);
         Assert.Equal(desc, menuItem.Description);

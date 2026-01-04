@@ -1,4 +1,8 @@
-﻿namespace Business.UseCases.Exceptions;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Business.UseCases.Exceptions;
+
+[ExcludeFromCodeCoverage]
 internal class InvalidOrderStatusException : Exception
 {
     private const string DEFAULT_MESSAGE = "OrderStatus cannot be null or empty.";
