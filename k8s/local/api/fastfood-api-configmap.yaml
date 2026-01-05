@@ -5,4 +5,4 @@ metadata:
   namespace: fiap
 data:
   AppName: "fiap-postec-soat-fastfood-order-api"
-  CUSTOMER_API_URL: "https://api.mercadopago.com"
+  CUSTOMER_API_URL: "fastfood-customer-api"
