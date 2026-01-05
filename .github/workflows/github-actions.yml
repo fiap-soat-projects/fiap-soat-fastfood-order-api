@@ -44,6 +44,9 @@ jobs:
           dotnet-version: '10.0.x'
   
       - name: Install SonarScanner
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Install DotNet Coverage
         run: dotnet tool install --global dotnet-coverage
 
       - name: SonarCloud - Begin
