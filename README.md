@@ -1,8 +1,8 @@
-# 🍔 FastFood API
+# 🍔 FastFood Order API
 
 Este projeto foi desenvolvido para o curso de [pós-graduação em Arquitetura de Software (Soat Póstech) da FIAP](https://postech.fiap.com.br/curso/software-architecture/).
 
-A API presente neste repositório disponibiliza rotas para gerenciamento de clientes, cardápio, pedidos e pagamentos, com integração direta com [MongoDB](https://www.mongodb.com/) e [Mercado Pago](https://www.mercadopago.com.br/developers/pt/reference).
+A API presente neste repositório disponibiliza rotas para gerenciamento de cardápio e pedidos , com integração direta com [MongoDB](https://www.mongodb.com/).
 
 ## 🏃 Integrantes do grupo
 
@@ -14,37 +14,21 @@ A API presente neste repositório disponibiliza rotas para gerenciamento de clie
 
 Para mais detalhes sobre a linguagem do domínio, consulte [`docs/ubiquitous-language.md`](docs/ubiquitous-language.md).
 
-## 🗂️ Diagramas do Projeto
-
-Os seguintes diagramas estão disponíveis no diretório [`/diagrams`](diagrams):
-
-- **Diagrama de Contexto:** Apresenta uma visão geral dos sistemas e atores que interagem com a FastFood API, destacando integrações externas e fluxos principais.
-
-- **Event Storming:** Ilustra os principais eventos de negócio, comandos e agregados do domínio, facilitando o entendimento dos fluxos e regras do sistema.
-
-- **Domain Storytelling:** Mostra narrativas visuais dos processos de negócio, detalhando como os diferentes atores interagem com o sistema em cenários típicos.
-
-Consulte o diretório [`/diagrams`](diagrams) para visualizar os arquivos e obter mais detalhes sobre cada diagrama.
-
 ## 👨‍💻 Tecnologias Utilizadas
 
-- **.NET 8** (C# 12)
+- **.NET 10** (C# 14)
 - **ASP.NET Core Web API**
 - **MongoDB** (banco de dados)
 - **Mongo Express** (cliente web para MongoDB)
 - **Docker** e **Docker Compose**
 - **Kubernetes** (gerenciamento de containers)
-- **Keda** (escalonamento)
-- **Prometheus** (métricas)
-- **Polly** (resiliência HTTP)
-- **Swagger** (documentação automática)
-- **MercadoPago** (integração de pagamentos via Pix)
+- **Scalar** (documentação automática)
 
 ## 🏁 Como Inicializar
 
 ### Pré-requisitos
 
-- 🐈‍⬛ Clonar este [Repositório](https://github.com/jefersondsgomes/fiap-soat-fastfood)
+- 🐈‍⬛ Clonar este [Repositório](https://github.com/fiap-soat-projects/fiap-soat-fastfood-order-api)
 - 🐳 Instalar o [Docker](https://www.docker.com/get-started/)
 - ☸️ Habilitar o Kubernetes no [Docker](https://docs.docker.com/desktop/features/kubernetes/)
 
@@ -52,15 +36,15 @@ Podemos executar essa aplicação de 2 maneiras diferentes:
 
 ### 1. **Docker**:
 
-No diretório raiz do projeto, utilize uma ferramenta de linha de comando de sua preferência e execute o comando `docker-compose up --build`.
+No diretório raiz na pasta do projeto, utilize uma ferramenta de linha de comando de sua preferência e execute o comando `docker-compose up --build`.
 
 A API e seus recursos estão disponíveis em:
-- **API**: [http://localhost:8080/swagger](http://localhost:8080/swagger)
+- **API**: [http://localhost:8080/scalar](http://localhost:8080/scalar)
 - **Mongo Express**: [http://localhost:8081](http://localhost:8081)
 
 ### 2. **Kubernetes**:
 
-No nosso repositório temos o diretório `/k8s` onde disponibilizamos todos os manifestos associados ao deploy e configuração da nossa API e banco de dados. Nesse contexto, temos a possibilidade de escalar nossa aplicação com base em métricas fornecidas pela API.
+No nosso repositório temos o diretório `/k8s` onde disponibilizamos todos os manifestos associados ao deploy e configuração da nossa API e banco de dados.
 
 Para utilizar esses recursos, precisaremos de alguns passos adicionais para preparação do ambiente:
 
@@ -69,79 +53,15 @@ Para utilizar esses recursos, precisaremos de alguns passos adicionais para prep
    Com o cluster **K8s** habilitado, precisaremos executar os seguintes comandos:
 
    - `kubectl create namespace fiap`
-   - `kubectl create namespace keda`
-   - `kubectl create namespace monitoring`
 
-2.2 **⚓ [Instalar o Helm](https://helm.sh/docs/intro/install/)**
-
-   O Helm é um gerenciador de pacotes para o Kubernetes e, através dele, podemos provisionar aplicações e ambientes inteiros de maneira simplificada. 
-
-   Para facilitar as coisas, essa instalação também pode ser feita a partir do comando abaixo:
-
-   - `curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash`
-
-2.3 **Configurar serviços adicionais no K8s**:
-
-   Temos 2 serviços principais que precisam estar em execução no nosso cluster **K8s** para que seja possível coletar as métricas da nossa aplicação e ajustar a escala dinamicamente. Para instalar esses recursos, precisamos que o **Helm** (passo 2) esteja disponível.
-
-   ##### - **Instalação do [KEDA](https://keda.sh/docs/2.9/deploy/)**
-
-   O **KEDA** é um componente para o **K8s** que estende as capacidades do HPA. Ele permite que as aplicações escalem automaticamente com base em métricas de eventos externas, indo muito além das métricas de CPU e memória padrão.
-
-   Utilizando o **Helm**, execute os comandos abaixo:
-   
-   - `helm repo add kedacore https://kedacore.github.io/charts`
-   - `helm repo update`
-   - `helm install keda kedacore/keda -n keda`
-
-   ##### - **Instalação do [Prometheus](https://grafana.com/docs/grafana-cloud/monitor-infrastructure/kubernetes-monitoring/configuration/config-other-methods/prometheus/prometheus-operator/)**
-
-   O **Prometheus** é uma ferramenta de monitoramento e alertas voltada para métricas de sistemas. Ele coleta dados em tempo real por meio de pulls em endpoints HTTP. As métricas são armazenadas em uma base de dados temporal e podem ser consultadas com a linguagem PromQL.
-
-   Execute os comandos abaixo:
-
-   - `helm repo add prometheus-community https://prometheus-community.github.io/helm-charts`
-   - `helm repo update`
-   - `helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring`
-   - `helm install prometheus-adapter prometheus-community/prometheus-adapter -n monitoring`
-   
-   ##### - Instalação do [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
-
-   O **Metrics Server** é um agregador de métricas de recursos usado pelo Kubernetes para fornecer dados de uso de CPU e memória dos pods e nodes. Ele é essencial para o funcionamento do HPA (Horizontal Pod Autoscaler) e para que ferramentas como o KEDA possam escalar os pods com base nessas métricas.
-
-   Para instalar o Metrics Server, execute os comandos abaixo:
-
-   ```sh
-   kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
-   ```
-
-   Se estiver rodando o cluster localmente (ex: Docker Desktop), pode ser necessário ajustar o deployment para permitir conexões inseguras (por exemplo, adicionar o argumento `--kubelet-insecure-tls`):
-
-   ```sh
-   kubectl -n kube-system edit deployment metrics-server
-   ```
-   Adicione o argumento abaixo em `spec.containers.args`:
-   ```yaml
-   - --kubelet-insecure-tls
-   ```
-
-   Após a instalação, verifique se o Metrics Server está funcionando corretamente:
-
-   ```sh
-   kubectl get --raw "/apis/metrics.k8s.io/v1beta1/nodes"
-   ```
-
-   Se retornar dados dos nodes, está tudo certo!
-
-2.4 Aplicar manifestos
+2.2 Aplicar manifestos
 
 Acesse o diretório `/k8s` e execute o comando `kubectl apply -f .`, isso fará com que todos os recursos descritos nos manifestos sejam aplicados no **K8s**. Com essa ação, teremos as APIs disponíveis em `http://localhost:30080`.
 
 ---
 
-### Arquitetura K8s:
-
-![soat-fastfood-architecture.drawio.png](./diagrams/img/soat-fastfood-architecture.drawio.png)
+### Sonar Coverage:
+![soat-fastfood-sonar.png](./resources/img/sonar.png)
 
 ## Dicas e Truques:
 
@@ -159,6 +79,7 @@ Acesse o diretório `/k8s` e execute o comando `kubectl apply -f .`, isso fará 
 - `GET /order/{id}` — Detalhar pedido
 - `POST /order` — Criar pedido
 - `PATCH /order/{id}/status` — Atualizar status do pedido
+- `PATCH /order/{id}/payment` — Atualizar pagamento do pedido
 - `DELETE /order/{id}` — Remover pedido
 
 ### 📲 Menu (Cardápio)
@@ -172,9 +93,6 @@ Acesse o diretório `/k8s` e execute o comando `kubectl apply -f .`, isso fará 
 - `GET /healthz` — Saúde da API
 - `GET /health` — Saúde da API e suas dependências
 
-### 📈 Metrics (Métricas)
-- `GET /metrics` — Métricas do Prometheus
-
 Se preferir, as requisições descritas acima podem ser acessadas via [Postman](https://www.postman.com/) por meio da seguinte documentação:
 
 - [fiap-soat-fastfood](https://documenter.getpostman.com/view/7741479/2sB3BAMYQs)
@@ -182,7 +100,7 @@ Se preferir, as requisições descritas acima podem ser acessadas via [Postman](
 ## 👤 Convenções
 
 - Todos os endpoints aceitam e retornam JSON.
-- Utilize o Swagger para explorar e testar os endpoints.
+- Utilize o Scalar para explorar e testar os endpoints.
 
 ## 🏦 Banco de Dados
 
@@ -234,17 +152,6 @@ Neste projeto utilizamos o [MongoDB Atlas](https://www.mongodb.com/products/plat
 | Category    | int         |
 | CreatedAt   | datetime    |
 | UpdatedAt   | datetime/null |
-
-##### **customers**
-
-| Campo     | Tipo        |
-|-----------|-------------|
-| _id       | ObjectId    |
-| Name      | string      |
-| Cpf       | string      |
-| Email     | string      |
-| CreatedAt | datetime    |
-| UpdatedAt | datetime/null |
 
 ---
 

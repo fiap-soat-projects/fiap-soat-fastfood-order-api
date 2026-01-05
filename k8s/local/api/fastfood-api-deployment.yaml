@@ -13,14 +13,10 @@ spec:
     metadata:
       labels:
         app: fastfood-order-api
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/path: "/metrics"
-        prometheus.io/port: "8080"
     spec:
       containers:
         - name: fastfood-order-api
-          image: jefersondsgomes/fiap-soat-fastfood-order-api:latest
+          image: ajjposproj/fiap-soat-fastfood-order-api:latest
           imagePullPolicy: IfNotPresent
           startupProbe:
             httpGet:
