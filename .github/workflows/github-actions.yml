@@ -45,7 +45,7 @@ jobs:
   
       - name: Install SonarScanner
         run: dotnet tool install --global dotnet-sonarscanner
-  
+
       - name: SonarCloud - Begin
         run: |
           dotnet-sonarscanner begin \
@@ -53,12 +53,12 @@ jobs:
             /o:"fiap-soat-projects" \
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
             /d:sonar.host.url="https://sonarcloud.io" \
-            /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" \
+            /d:sonar.cs.opencover.reportsPaths="**/TestResults/coverage/coverage.opencover.xml" \
             /d:sonar.cs.vstest.reportsPaths="**/*.trx"
-  
+      
       - name: Build
         run: dotnet build --configuration Release --no-incremental
-  
+      
       - name: Test + Coverage
         run: |
           dotnet test \
@@ -66,6 +66,7 @@ jobs:
             --no-build \
             --logger trx \
             /p:CollectCoverage=true \
+            /p:CoverletOutput=./TestResults/coverage/ \
             /p:CoverletOutputFormat=opencover
   
       - name: SonarCloud - End
