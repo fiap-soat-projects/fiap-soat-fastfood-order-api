@@ -47,6 +47,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{F295F365-A31
 		k8s\fastfood-order-api-deployment.yaml = k8s\fastfood-order-api-deployment.yaml
 		k8s\fastfood-order-api-configmap.yaml = k8s\fastfood-order-api-configmap.yaml
 		k8s\fastfood-order-api-service.yaml = k8s\fastfood-order-api-service.yaml
+		k8s\fastfood-order-api-hpa.yaml = k8s\fastfood-order-api-hpa.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "local", "local", "{9E4A5685-6FAC-4734-8769-74F0C9592953}"
