@@ -5,6 +5,13 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+  workflow_dispatch:
+
+env:
+  APP_NAME: 'fastfood-order-api'
+  SONAR_REPO_NAME: 'fiap-soat-fastfood-order-api'
+  IMAGE_NAME: 'fiap-soat-fastfood-order-api'
+  DOTNET_VERSION: '10.0.x'
 
 jobs:
   dotnet_build:
@@ -17,7 +24,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "10.0.x"
+          dotnet-version: ${{ env.DOTNET_VERSION }} 
 
       - name: Restore dependencies
         run: dotnet restore
@@ -41,7 +48,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.0.x'
+          dotnet-version: ${{ env.DOTNET_VERSION }}
   
       - name: Install jq
         run: sudo apt-get install -y jq
@@ -55,7 +62,7 @@ jobs:
       - name: SonarCloud - Begin
         run: |
           dotnet-sonarscanner begin \
-            /k:"fiap-soat-projects_fiap-soat-fastfood-order-api" \
+            /k:"fiap-soat-projects_${{ env.SONAR_REPO_NAME }}" \
             /o:"fiap-soat-projects" \
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
             /d:sonar.host.url="https://sonarcloud.io" \
@@ -152,7 +159,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_TENANT }}/fiap-soat-fastfood-order-api:${{ steps.vars.outputs.version }}
+            ${{ secrets.DOCKERHUB_TENANT }}/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.version }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -191,7 +198,7 @@ jobs:
 
       - name: Create secrets manifest
         run: |
-          cat > ./k8s/fastfood-order-api-secret.yaml <<'EOF'
+          cat > ./k8s/${{ env.APP_NAME }}-secret.yaml <<'EOF'
           ${{ secrets.API_SECRETS_MANIFEST }}
           EOF
 
@@ -214,9 +221,9 @@ jobs:
       - name: Update image tag using yq
         if: github.event_name == 'pull_request'
         run: |
-          yq e ".spec.template.spec.containers[0].image = \"ajjposproj/fiap-soat-fastfood-order-api:${{ env.VERSION }}\"" -i k8s/fastfood-order-api-deployment.yaml
+          yq e ".spec.template.spec.containers[0].image = \"${{ secrets.DOCKERHUB_TENANT }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}\"" -i k8s/${{ env.APP_NAME }}-deployment.yaml
 
       - name: Deploy
         run: |
           kubectl apply -f k8s/.
-          kubectl rollout status deployment/fastfood-api -n fiap --timeout=60s
+          kubectl rollout status deployment/${{ env.APP_NAME }} -n fiap --timeout=60s

@@ -44,9 +44,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{F295F365-A31A-420C-9A5D-00E4C6978699}"
 	ProjectSection(SolutionItems) = preProject
-		k8s\fastfood-api-configmap.yaml = k8s\fastfood-api-configmap.yaml
-		k8s\fastfood-api-deployment.yaml = k8s\fastfood-api-deployment.yaml
-		k8s\fastfood-api-service.yaml = k8s\fastfood-api-service.yaml
+		k8s\fastfood-order-api-deployment.yaml = k8s\fastfood-order-api-deployment.yaml
+		k8s\fastfood-order-api-configmap.yaml = k8s\fastfood-order-api-configmap.yaml
+		k8s\fastfood-order-api-service.yaml = k8s\fastfood-order-api-service.yaml
+		k8s\fastfood-order-api-hpa.yaml = k8s\fastfood-order-api-hpa.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "local", "local", "{9E4A5685-6FAC-4734-8769-74F0C9592953}"
@@ -68,8 +69,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{3A98036A-E3F
 	ProjectSection(SolutionItems) = preProject
 		k8s\local\api\fastfood-api-configmap.yaml = k8s\local\api\fastfood-api-configmap.yaml
 		k8s\local\api\fastfood-api-deployment.yaml = k8s\local\api\fastfood-api-deployment.yaml
-		k8s\local\api\fastfood-api-secret.yaml = k8s\local\api\fastfood-api-secret.yaml
 		k8s\local\api\fastfood-api-hpa.yaml = k8s\local\api\fastfood-api-hpa.yaml
+		k8s\local\api\fastfood-api-secret.yaml = k8s\local\api\fastfood-api-secret.yaml
 		k8s\local\api\fastfood-api-service.yaml = k8s\local\api\fastfood-api-service.yaml
 	EndProjectSection
 EndProject
